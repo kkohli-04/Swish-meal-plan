@@ -1,0 +1,26 @@
+%% Swish Routine weekly Breakfast Pass: customer journey. Paste into mermaid.live to edit.
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Inter, Arial','primaryColor':'#FFFFFF','primaryBorderColor':'#34C363','primaryTextColor':'#1B2420','lineColor':'#34C363','fontSize':'15px'}}}%%
+flowchart TD
+  S1["1 · Eligibility<br/>breakfast 2–5 times a week"]:::main --> S2["2 · Your usual, ₹10 cheaper<br/>home banner + 3rd-order nudge"]:::main
+  S2 --> S3["3 · Pass setup<br/>pick mornings · 5 × ₹190 = ₹950 · save ₹50"]:::main
+  S3 --> S4["4 · Pay for the week<br/>auto-renew off unless turned on"]:::main
+  S4 --> S5["5 · Tomorrow's breakfast<br/>reminder before 10 pm cut-off"]:::main
+  S5 --> S6["6 · Delivered in ~10 min<br/>'saved ₹10' on each"]:::main
+  S6 --> S7["7 · Skip, swap or get help"]:::main
+  S7 --> S8["8 · Sunday recap + next week<br/>carried-over breakfasts reduce price"]:::main
+  S1 -. "too little history" .-> E1["Starter week by taste,<br/>after first order"]:::exc
+  S1 -. "first-order offer running" .-> E1b["Show nothing yet:<br/>offers never stack"]:::neutral
+  S2 -. "turns off personalisation" .-> E1
+  S3 -. "meal unavailable" .-> E3["Same-price alternative suggested"]:::exc
+  S4 -. "payment fails" .-> E4["No charge, pass inactive,<br/>retry"]:::stop
+  E4 -. retry .-> S4
+  S5 -. "sold out / missed cut-off" .-> E5["Swap, next morning,<br/>or carry to next week"]:::exc
+  E5 -.-> S5
+  S6 -. "quality complaint" .-> E6["Support replaces or refunds"]:::exc
+  S7 -. "skip / swap / move" .-> S5
+  S7 -. "wants out" .-> S8
+  S8 -. "no response" .-> E8["No charge unless auto-renew is on;<br/>if on: Saturday reminder, one-tap stop"]:::neutral
+  classDef main fill:#FFFFFF,stroke:#34C363,stroke-width:2.5px,color:#1B2420,font-weight:bold
+  classDef exc fill:#FFF4DE,stroke:#F5C46B,stroke-width:2px,color:#6E4300
+  classDef stop fill:#FDECEC,stroke:#F2A7A9,stroke-width:2px,color:#8C1F23
+  classDef neutral fill:#FFFFFF,stroke:#DDE6E0,stroke-width:2px,color:#4B5751

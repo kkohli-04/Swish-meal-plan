@@ -1,0 +1,30 @@
+%% Swish Routine weekly Breakfast Pass: operations and pricing. Paste into mermaid.live to edit.
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Inter, Arial','primaryColor':'#FFFFFF','primaryBorderColor':'#34C363','primaryTextColor':'#1B2420','lineColor':'#34C363','fontSize':'15px'}}}%%
+flowchart TD
+  B1["1 · Order-history signal · Data<br/>usual 3 breakfasts a week"]:::main --> B2["2 · Basket selection · Product<br/>2–4 repeat baskets on the menu"]:::main
+  B2 --> B3["3 · Cost and margin check · Finance<br/>₹190 − cost ≥ floor"]:::main
+  B3 --> B4["4 · Pass size and price · Finance<br/>usual + 2 · ₹10 off ≤ half break-even"]:::main
+  B4 --> B5["5 · Capacity · Ops<br/>weekly prep forecast, slot caps"]:::main
+  B5 --> B6["6 · Offer · Product<br/>random split: offer vs holdout"]:::main
+  B6 --> B7["7 · Redemption · Ops<br/>credit drawn at delivery"]:::main
+  B7 --> B8["8 · Tracking · Finance + Product<br/>extra contribution vs holdout"]:::main
+  B8 --> D1(["Expand"]):::go
+  B8 --> D2(["Revise"]):::rev
+  B8 --> D3(["Stop"]):::stop
+  B1 -. "too little history" .-> X1["Starter week"]:::exc
+  B3 -. "below floor" .-> X3["Keep out of the Pass,<br/>menu price only"]:::exc
+  X3 -.-> B2
+  B4 -. "misses contribution rule" .-> X4["No offer · Finance review queue"]:::stop
+  B4 -. "intro offer or coupon active" .-> X4b["Block stacking"]:::neutral
+  B5 -. "slot full" .-> X5["Different slot or morning,<br/>or hold offer"]:::exc
+  X5 -.-> B2
+  B6 -. "holdout" .-> X6["No offer: measures what<br/>would have happened anyway"]:::neutral
+  B7 -. "sold out / cut-off missed" .-> X7["Same-price swap or carry over"]:::exc
+  B7 -. "refund requested" .-> X7b["Refund unused breakfasts,<br/>log cost"]:::exc
+  D2 -.-> B4
+  classDef main fill:#FFFFFF,stroke:#34C363,stroke-width:2.5px,color:#1B2420,font-weight:bold
+  classDef exc fill:#FFF4DE,stroke:#F5C46B,stroke-width:2px,color:#6E4300
+  classDef stop fill:#FDECEC,stroke:#F2A7A9,stroke-width:2px,color:#8C1F23
+  classDef neutral fill:#FFFFFF,stroke:#DDE6E0,stroke-width:2px,color:#4B5751
+  classDef go fill:#1E9E4A,stroke:#1E9E4A,color:#FFFFFF,font-weight:bold
+  classDef rev fill:#C98500,stroke:#C98500,color:#FFFFFF,font-weight:bold
